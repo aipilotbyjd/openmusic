@@ -30,6 +30,7 @@ export default function RootLayout() {
     SFProTextBold: require("../assets/fonts/SF-Pro-Text-Bold.otf"),
     SFProTextMedium: require("../assets/fonts/SF-Pro-Text-Medium.otf"),
     SFProTextSemibold: require("../assets/fonts/SF-Pro-Text-Semibold.ttf"),
+    Minggola: require("../assets/fonts/Minggola.ttf"),
     ...FontAwesome.font,
   });
 

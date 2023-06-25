@@ -6,9 +6,11 @@ import { Text, View } from "../../components/Themed";
 export default function TabOneScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title} className="bg-orange-300">
-        Tab One
+      <Text style={{ fontFamily: "Minggola", fontSize: 16 }}>
+        Jaydeep Dhrangiya t
       </Text>
+      <Text style={styles.title1}>Jaydeep Dhrangiya t</Text>
+      <Text>deCODERTt</Text>
       <View
         style={styles.separator}
         lightColor="#eee"
@@ -26,8 +28,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 16,
+    fontFamily: "SFProDisplayBold",
+  },
+  title1: {
+    fontSize: 16,
     fontFamily: "SFProDisplayBold",
   },
   separator: {
