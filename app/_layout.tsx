@@ -22,14 +22,14 @@ export const unstable_settings = {
 export default function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-    SFProDisplayRegular: require("../assets/fonts/SF-Pro-Display-Regular"),
-    SFProDisplayBold: require("../assets/fonts/SF-Pro-Display-Bold"),
-    SFProDisplayMedium: require("../assets/fonts/SF-Pro-Display-Medium"),
-    SFProDisplaySemibold: require("../assets/fonts/SF-Pro-Display-Semibold"),
-    SFProTextRegular: require("../assets/fonts/SF-Pro-Text-Regular"),
-    SFProTextBold: require("../assets/fonts/SF-Pro-Text-Bold"),
-    SFProTextMedium: require("../assets/fonts/SF-Pro-Text-Medium"),
-    SFProTextSemibold: require("../assets/fonts/SF-Pro-Text-Semibold"),
+    SFProDisplayRegular: require("../assets/fonts/SF-Pro-Display-Regular.ttf"),
+    SFProDisplayBold: require("../assets/fonts/SF-Pro-Display-Bold.otf"),
+    SFProDisplayMedium: require("../assets/fonts/SF-Pro-Display-Medium.ttf"),
+    SFProDisplaySemibold: require("../assets/fonts/SF-Pro-Display-Semibold.ttf"),
+    SFProTextRegular: require("../assets/fonts/SF-Pro-Text-Regular.otf"),
+    SFProTextBold: require("../assets/fonts/SF-Pro-Text-Bold.otf"),
+    SFProTextMedium: require("../assets/fonts/SF-Pro-Text-Medium.otf"),
+    SFProTextSemibold: require("../assets/fonts/SF-Pro-Text-Semibold.ttf"),
     ...FontAwesome.font,
   });
 
