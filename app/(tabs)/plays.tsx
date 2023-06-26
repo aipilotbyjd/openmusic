@@ -168,7 +168,8 @@ const Plays: React.FC = () => {
             uri: "https://p16.resso.me/img/tos-alisg-v-2102/7c1085959d3a430f9ccd6415f22a3e6d~c5_500x500.jpg",
           }}
           style={styles.imageStyle}
-          resizeMode="cover"
+          resizeMode="contain"
+          className="rounded-lg"
         />
       </View>
       <View>
@@ -302,8 +303,9 @@ const styles = StyleSheet.create({
     color: "#222222",
   },
   imageStyle: {
-    width: "100%",
+    width: "70%",
     height: "100%",
+    alignSelf: "center",
   },
   audioPlayerContainer: {
     flexDirection: "column",
