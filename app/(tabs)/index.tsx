@@ -1,43 +1,23 @@
-import { StyleSheet } from "react-native";
-
-import EditScreenInfo from "../../components/EditScreenInfo";
+import { ScrollView, StyleSheet } from "react-native";
 import { Text, View } from "../../components/Themed";
+import StoryList from "../../components/stories/storylist";
+import SliderList from "../../components/slider/sliderlist";
+import DisplayPlaylist from "../../components/playlist/displayplaylist";
+import Feed from "../../components/feed";
+import DisplayArtists from "../../components/artists";
 
 export default function TabOneScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={{ fontFamily: "Minggola", fontSize: 16 }}>
-        Jaydeep Dhrangiya t
-      </Text>
-      <Text style={styles.title1}>Jaydeep Dhrangiya t</Text>
-      <Text>deCODERTt</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <ScrollView>
+      <View className="flex" style={{ backgroundColor: "#222222" }}>
+        <StoryList />
+        <SliderList />
+        <Feed />
+        <DisplayPlaylist />
+        <Feed />
+        <DisplayArtists />
+        <Feed />
+      </View>
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 16,
-    fontFamily: "SFProDisplayBold",
-  },
-  title1: {
-    fontSize: 16,
-    fontFamily: "SFProDisplayBold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-});
