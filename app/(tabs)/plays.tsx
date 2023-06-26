@@ -19,7 +19,7 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import Slider from "@react-native-community/slider";
-import { AVPlaybackStatus, Audio } from "expo-av";
+import { AVPlaybackStatus, Audio, ResizeMode, Video } from "expo-av";
 
 const screenWidth = Dimensions.get("window").width;
 const imageHeight = screenWidth * 0.7;
@@ -33,6 +33,7 @@ const Plays: React.FC = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [isRepeat, setIsRepeat] = useState(false);
   const animatedValue = useState(new Animated.Value(0))[0];
+  const [isAudio, setIsAudio] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -202,17 +203,33 @@ const Plays: React.FC = () => {
         )}
       </View>
       <View style={{ height: imageHeight, paddingTop: 20 }}>
-        <Animated.Image
-          source={{
-            uri: "https://p16.resso.me/img/tos-alisg-v-2102/7c1085959d3a430f9ccd6415f22a3e6d~c5_500x500.jpg",
-          }}
-          style={[
-            styles.imageStyle,
-            { transform: [{ rotate: rotateInterpolation }] },
-          ]}
-          resizeMode="contain"
-          className="rounded-lg"
-        />
+        {isAudio ? (
+          <Animated.Image
+            source={{
+              uri: "https://p16.resso.me/img/tos-alisg-v-2102/7c1085959d3a430f9ccd6415f22a3e6d~c5_500x500.jpg",
+            }}
+            style={[
+              styles.imageStyle,
+              { transform: [{ rotate: rotateInterpolation }] },
+            ]}
+            resizeMode="contain"
+            className="rounded-lg"
+          />
+        ) : (
+          <Video
+            source={{
+              uri: "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+            }} // Replace with your video URL
+            resizeMode={ResizeMode.CONTAIN}
+            shouldPlay
+            isLooping
+            style={{
+              width: "95%",
+              height: "100%",
+              alignSelf: "center",
+            }}
+          />
+        )}
       </View>
       <View style={styles.lyrix}>
         <Text
