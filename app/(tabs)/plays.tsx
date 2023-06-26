@@ -172,6 +172,20 @@ const Plays: React.FC = () => {
           className="rounded-lg"
         />
       </View>
+      <View style={styles.lyrix}>
+        <Text
+          style={{ fontFamily: "SFProTextBold" }}
+          className="text-white text-center"
+        >
+          Mere zakhmon ko zara aur hara
+        </Text>
+        <Text
+          style={{ fontFamily: "SFProTextBold" }}
+          className=" text-gray-300 text-center"
+        >
+          Oh bedard aa yaar bedard
+        </Text>
+      </View>
       <View>
         <View style={styles.audioPlayerContainer}>
           <View style={styles.songName}>
@@ -344,5 +358,9 @@ const styles = StyleSheet.create({
   },
   artistText: {
     fontFamily: "SFProDisplayBold",
+  },
+  lyrix: {
+    paddingTop: 20,
+    paddingBottom: 20,
   },
 });
