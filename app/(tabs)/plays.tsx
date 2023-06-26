@@ -154,6 +154,7 @@ const Plays: React.FC = () => {
               color="white"
               style={styles.arrowIcon}
             />
+            <Ionicons name="ios-search" size={24} color="white" />
           </View>
         </TouchableOpacity>
         {showContent && (
