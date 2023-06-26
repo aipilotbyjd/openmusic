@@ -100,8 +100,12 @@ const Plays: React.FC = () => {
         onPlaybackStatusUpdate
       );
       setSound(sound);
+      if (isPlaying) {
+        await sound.playAsync();
+      } else {
+        await sound.playFromPositionAsync(position);
+      }
       setIsPlaying(true);
-      await sound.playAsync();
     } catch (error) {
       console.log("Error playing audio: ", error);
     }
