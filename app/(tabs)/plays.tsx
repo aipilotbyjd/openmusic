@@ -18,7 +18,7 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import Slider from "@react-native-community/slider";
-import { Audio } from "expo-av";
+import { AVPlaybackStatus, Audio } from "expo-av";
 
 const Plays: React.FC = () => {
   const [showContent, setShowContent] = useState<boolean>(false);
@@ -125,10 +125,10 @@ const Plays: React.FC = () => {
     }
   };
 
-  const onPlaybackStatusUpdate = (status: Audio.PlaybackStatus) => {
+  const onPlaybackStatusUpdate = (status: AVPlaybackStatus) => {
     if (status.isLoaded) {
-      setDuration(status.durationMillis);
-      setPosition(status.positionMillis);
+      setDuration(status.durationMillis || 0);
+      setPosition(status.positionMillis || 0);
     }
   };
 
@@ -183,6 +183,10 @@ const Plays: React.FC = () => {
                 onValueChange={seekAudio}
               />
             </View>
+            <Text style={{ color: "#ffffff" }}>
+              {Math.floor(position / 60000)}:
+              {Math.floor((position % 60000) / 1000)}
+            </Text>
           </View>
           <View style={styles.audioControlContainer}>
             <View style={styles.audiobuttons}>
