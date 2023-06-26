@@ -1,29 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
   ScrollView,
+  Image,
+  Dimensions,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  AntDesign,
+  FontAwesome,
+  Entypo,
+  FontAwesome5,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from "@expo/vector-icons";
+import Slider from "@react-native-community/slider";
+import { Audio } from "expo-av";
 
-const Plays = () => {
-  const [showContent, setShowContent] = useState(false);
+const Plays: React.FC = () => {
+  const [showContent, setShowContent] = useState<boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [sound, setSound] = useState<Audio.Sound | null>(null);
+  const [duration, setDuration] = useState<number>(0);
+  const [position, setPosition] = useState<number>(0);
 
-  const Header = () => {
-    const categories = [
+  useEffect(() => {
+    return () => {
+      if (sound) {
+        sound.unloadAsync();
+      }
+    };
+  }, []);
+
+  const Header: React.FC = () => {
+    const categories: string[] = [
       "Home",
       "Trending",
-      "popular",
+      "Popular",
       "Original",
       "Featured",
-      "interesting",
+      "Interesting",
     ];
-    const [selectedCategory, setSelectedCategory] = useState("Home");
+    const [selectedCategory, setSelectedCategory] = useState<string>("Home");
 
-    const handleCategorySelection = (category: any) => {
+    const handleCategorySelection = (category: string) => {
       setSelectedCategory(category);
       // Perform any additional actions based on the selected category
     };
@@ -66,9 +89,52 @@ const Plays = () => {
     setShowContent(!showContent);
   };
 
+  const screenWidth = Dimensions.get("window").width;
+  const imageHeight = screenWidth * 0.7;
+
+  const playAudio = async () => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        { uri: "https://domainback.000webhostapp.com/thalapathy.mp3" },
+        { isLooping: true },
+        onPlaybackStatusUpdate
+      );
+      setSound(sound);
+      setIsPlaying(true);
+      await sound.playAsync();
+    } catch (error) {
+      console.log("Error playing audio: ", error);
+    }
+  };
+
+  const pauseAudio = async () => {
+    try {
+      if (sound) {
+        await sound.pauseAsync();
+        setIsPlaying(false);
+      }
+    } catch (error) {
+      console.log("Error pausing audio: ", error);
+    }
+  };
+
+  const seekAudio = (value: number) => {
+    if (sound) {
+      sound.setPositionAsync(value);
+      setPosition(value);
+    }
+  };
+
+  const onPlaybackStatusUpdate = (status: Audio.PlaybackStatus) => {
+    if (status.isLoaded) {
+      setDuration(status.durationMillis);
+      setPosition(status.positionMillis);
+    }
+  };
+
   return (
-    <SafeAreaView style={styles.safeAreaView}>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <View>
         <TouchableOpacity onPress={handleHeaderPress}>
           <View style={styles.header}>
             <Text style={styles.headerText}>For You</Text>
@@ -83,23 +149,82 @@ const Plays = () => {
         {showContent && (
           <View>
             <Header />
-            {/* Add your content here */}
           </View>
         )}
       </View>
-    </SafeAreaView>
+      <View style={{ height: imageHeight, paddingTop: 20 }}>
+        <Image
+          source={{
+            uri: "https://p16.resso.me/img/tos-alisg-v-2102/7c1085959d3a430f9ccd6415f22a3e6d~c5_500x500.jpg",
+          }}
+          style={styles.imageStyle}
+          resizeMode="cover"
+        />
+      </View>
+      <View>
+        <View style={styles.audioPlayerContainer}>
+          <View style={styles.audioControlContainer}>
+            <TouchableOpacity onPress={isPlaying ? pauseAudio : playAudio}>
+              <Ionicons
+                name={isPlaying ? "ios-pause" : "ios-play"}
+                size={24}
+                color="white"
+              />
+            </TouchableOpacity>
+            <View style={styles.audioSliderContainer}>
+              <Slider
+                style={styles.audioSlider}
+                minimumValue={0}
+                maximumValue={duration}
+                value={position}
+                minimumTrackTintColor="#ffffff"
+                maximumTrackTintColor="#7e7e7e"
+                thumbTintColor="#ffffff"
+                onValueChange={seekAudio}
+              />
+            </View>
+          </View>
+          <View style={styles.audioControlContainer}>
+            <View style={styles.audiobuttons}>
+              <TouchableOpacity>
+                <Ionicons name="heart" size={24} color="white" />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <MaterialCommunityIcons
+                  name="comment-processing"
+                  size={24}
+                  color="white"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <FontAwesome name="share-alt" size={24} color="white" />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.audiobuttons}>
+              <TouchableOpacity>
+                <MaterialIcons name="cloud-download" size={24} color="white" />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <MaterialIcons name="repeat-one" size={24} color="white" />
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Entypo name="dots-three-vertical" size={24} color="white" />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
   );
 };
 
 export default Plays;
 
 const styles = StyleSheet.create({
-  safeAreaView: {
-    flex: 1,
-  },
   container: {
     flex: 1,
     backgroundColor: "#222222",
+    paddingTop: 15,
   },
   header: {
     flexDirection: "row",
@@ -127,20 +252,48 @@ const styles = StyleSheet.create({
   categoryButton: {
     paddingHorizontal: 8,
     paddingVertical: 4,
-    borderRadius: 12,
-    marginHorizontal: 4,
-    backgroundColor: "transparent",
+    marginRight: 8,
+    borderRadius: 20,
   },
   selectedCategoryButton: {
     backgroundColor: "white",
   },
   categoryButtonText: {
     color: "white",
+    fontFamily: "SFProDisplayBold",
     fontSize: 12,
-    fontFamily: "SFProTextMedium",
   },
   selectedCategoryButtonText: {
-    color: "black",
-    fontFamily: "SFProDisplayBold",
+    color: "#222222",
+  },
+  imageStyle: {
+    width: "100%",
+    height: "100%",
+  },
+  audioPlayerContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+    padding: 16,
+  },
+  audioControlContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    marginBottom: 16,
+  },
+  audioSliderContainer: {
+    flex: 1,
+    marginLeft: 8,
+    marginRight: 8,
+  },
+  audioSlider: {
+    width: "100%",
+    height: 40,
+  },
+  audiobuttons: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "40%",
   },
 });
