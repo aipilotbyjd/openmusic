@@ -273,10 +273,19 @@ const Plays: React.FC = () => {
 
 export default Plays;
 
+const colors = [
+  "#0F4C81",
+  "#8A2BE2",
+  "#FF6B35",
+  "#008080",
+  "#FFD700",
+  "#000000",
+];
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#222222",
+    backgroundColor: colors[Math.floor(Math.random() * colors.length)],
     paddingTop: 18,
   },
   header: {
