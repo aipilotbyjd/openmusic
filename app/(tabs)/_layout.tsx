@@ -43,6 +43,20 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="plays"
+        options={{
+          title: "Plays",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="music-circle"
+              size={24}
+              color={color}
+            />
+          ),
+          headerShown: false,
+        }}
+      />
+      <Tabs.Screen
         name="explore"
         options={{
           title: "Explore",
