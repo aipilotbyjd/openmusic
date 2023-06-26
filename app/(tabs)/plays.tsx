@@ -26,6 +26,8 @@ const Plays: React.FC = () => {
   const [sound, setSound] = useState<Audio.Sound | null>(null);
   const [duration, setDuration] = useState<number>(0);
   const [position, setPosition] = useState<number>(0);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [isRepeat, setIsRepeat] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -136,6 +138,10 @@ const Plays: React.FC = () => {
     }
   };
 
+  const handleToggleFollow = () => {
+    setIsFollowing((prevState) => !prevState);
+  };
+
   return (
     <View style={styles.container}>
       <View>
@@ -167,6 +173,27 @@ const Plays: React.FC = () => {
       </View>
       <View>
         <View style={styles.audioPlayerContainer}>
+          <View style={styles.songName}>
+            <Text className="text-white text-base" style={styles.songText}>
+              Apna Bana Le (From "Bhediya")
+            </Text>
+          </View>
+          <View style={styles.artistName}>
+            <Text className="text-white text-xs" style={styles.artistText}>
+              Rajbha Gadhavi
+            </Text>
+            <TouchableOpacity
+              onPress={handleToggleFollow}
+              className="flex border border-white rounded-3xl ml-2"
+            >
+              <Text
+                className="text-white text-[10px] px-2 text-center"
+                style={{ fontFamily: "SFProTextBold" }}
+              >
+                {isFollowing ? "Following" : "Follow"}
+              </Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.audioControlContainer}>
             <TouchableOpacity onPress={isPlaying ? pauseAudio : playAudio}>
               <Ionicons
@@ -280,7 +307,6 @@ const styles = StyleSheet.create({
   },
   audioPlayerContainer: {
     flexDirection: "column",
-    alignItems: "center",
     padding: 16,
   },
   audioControlContainer: {
@@ -303,5 +329,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "40%",
+  },
+  songName: {
+    marginBottom: 10,
+  },
+  artistName: {
+    flexDirection: "row",
+    marginBottom: 10,
+  },
+  songText: {
+    fontFamily: "SFProDisplayBold",
+  },
+  artistText: {
+    fontFamily: "SFProDisplayBold",
   },
 });
