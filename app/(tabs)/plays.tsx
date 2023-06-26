@@ -7,6 +7,7 @@ import {
   ScrollView,
   Image,
   Dimensions,
+  Animated,
 } from "react-native";
 import {
   AntDesign,
@@ -31,6 +32,7 @@ const Plays: React.FC = () => {
   const [position, setPosition] = useState<number>(0);
   const [isFollowing, setIsFollowing] = useState(false);
   const [isRepeat, setIsRepeat] = useState(false);
+  const animatedValue = useState(new Animated.Value(0))[0];
 
   useEffect(() => {
     return () => {
@@ -39,6 +41,40 @@ const Plays: React.FC = () => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (isPlaying) {
+      startAnimation();
+    } else {
+      stopAnimation();
+    }
+  }, [isPlaying]);
+
+  const startAnimation = () => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(animatedValue, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        Animated.timing(animatedValue, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  };
+
+  const stopAnimation = () => {
+    animatedValue.stopAnimation();
+  };
+
+  const rotateInterpolation = animatedValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "360deg"],
+  });
 
   const Header: React.FC = () => {
     const categories: string[] = [
@@ -166,11 +202,14 @@ const Plays: React.FC = () => {
         )}
       </View>
       <View style={{ height: imageHeight, paddingTop: 20 }}>
-        <Image
+        <Animated.Image
           source={{
             uri: "https://p16.resso.me/img/tos-alisg-v-2102/7c1085959d3a430f9ccd6415f22a3e6d~c5_500x500.jpg",
           }}
-          style={styles.imageStyle}
+          style={[
+            styles.imageStyle,
+            { transform: [{ rotate: rotateInterpolation }] },
+          ]}
           resizeMode="contain"
           className="rounded-lg"
         />
