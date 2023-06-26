@@ -230,6 +230,20 @@ const Plays: React.FC = () => {
       </View>
       <View>
         <View style={styles.audioPlayerContainer}>
+          <View style={styles.fullSong}>
+            <TouchableOpacity
+              onPress={handleToggleFollow}
+              className="flex flex-row border items-center justify-center border-white rounded-lg w-40"
+            >
+              <FontAwesome5 name="fingerprint" size={14} color="white" />
+              <Text
+                className="text-white text-[10px] pl-2"
+                style={{ fontFamily: "SFProTextBold" }}
+              >
+                Watch Full Song
+              </Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.songName}>
             <Text className="text-white text-base" style={styles.songText}>
               Apna Bana Le (From "Bhediya")
@@ -414,4 +428,5 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 20,
   },
+  fullSong: {},
 });
