@@ -3,7 +3,7 @@ import { TouchableOpacity, View, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 const Header = () => {
-  const image = require("../assets/images/logo.png");
+  const image = require("../../../assets/images/logo.png");
   const avatar: string =
     "https://yt3.ggpht.com/SBra9X0UPsNzyDjGcvN4iw2pb5Qku_3qFd1figMt48J7rUdU8mJYHPHAx0t6d0E6wLcUU__nZjg=s68-c-k-c0x00ffffff-no-rj";
 
