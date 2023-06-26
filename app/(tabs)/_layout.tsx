@@ -4,6 +4,7 @@ import { Pressable, useColorScheme } from "react-native";
 
 import Colors from "../../constants/Colors";
 import Header from "../../components/Menus/Header";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -21,25 +22,34 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarActiveTintColor: Colors.dark.tint,
         tabBarStyle: {
-          backgroundColor: "black",
+          backgroundColor: Colors.dark.background,
         },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "Tab One",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "Home",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="home-lightning-bolt"
+              size={24}
+              color={color}
+            />
+          ),
           header: Header,
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="explore"
         options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "Explore",
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="explore" size={24} color={color} />
+          ),
+          headerShown: false,
         }}
       />
     </Tabs>
