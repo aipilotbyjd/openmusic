@@ -183,7 +183,7 @@ const Plays: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.forYouContainer}>
         <TouchableOpacity onPress={handleHeaderPress}>
           <View style={styles.header}>
             <Text style={styles.headerText}>For You</Text>
@@ -227,6 +227,15 @@ const Plays: React.FC = () => {
         >
           Oh bedard aa yaar bedard
         </Text>
+      </View>
+      <View style={{ height: 50, marginHorizontal: 20 }}>
+        <Image
+          source={{
+            uri: "https://p16.resso.me/img/tos-alisg-v-2102/7c1085959d3a430f9ccd6415f22a3e6d~c5_500x500.jpg",
+          }}
+          style={{ width: "100%", height: "100%" }}
+          resizeMode="cover"
+        />
       </View>
       <View>
         <View style={styles.audioPlayerContainer}>
@@ -340,6 +349,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors[Math.floor(Math.random() * colors.length)],
     paddingTop: 18,
+  },
+  forYouContainer: {
+    height: 80, // Adjust the height according to your requirement
+    width: "100%",
   },
   header: {
     flexDirection: "row",
