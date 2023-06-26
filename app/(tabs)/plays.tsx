@@ -130,10 +130,7 @@ const Plays: React.FC = () => {
   const handleHeaderPress = () => {
     setShowContent(!showContent);
   };
-
-  const screenWidth = Dimensions.get("window").width;
-  const imageHeight = screenWidth * 0.7;
-
+  
   const playAudio = async () => {
     try {
       const { sound } = await Audio.Sound.createAsync(
