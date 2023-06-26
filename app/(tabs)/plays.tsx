@@ -20,6 +20,9 @@ import {
 import Slider from "@react-native-community/slider";
 import { AVPlaybackStatus, Audio } from "expo-av";
 
+const screenWidth = Dimensions.get("window").width;
+const imageHeight = screenWidth * 0.7;
+
 const Plays: React.FC = () => {
   const [showContent, setShowContent] = useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -274,7 +277,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#222222",
-    paddingTop: 15,
+    paddingTop: 18,
   },
   header: {
     flexDirection: "row",
